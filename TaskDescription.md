@@ -6,7 +6,7 @@
 3. Create a new branch using the command:
 ```bash
 git checkout -b e2e_testing
-```
+``
 4. Run the installation command:
 ```bash
 npm i

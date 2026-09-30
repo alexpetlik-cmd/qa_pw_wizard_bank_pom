@@ -26,4 +26,20 @@ test('Assert manager can add new customer', async ({ page }) => {
   2. Do not rely on the customer row id for the steps 8-11. 
     Use the ".last()" locator to get the last row.
   */
+
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+  const postCode = faker.location.zipCode();
+
+  // Step 1: Open add customer page by link
+  await page.goto('https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/addCust');
+
+  // Step 2-4: Fill the form
+  await page.fill('input[placeholder="First Name"]', firstName);
+  await page.fill('input[placeholder="Last Name"]', lastName);
+  await page.fill('input[placeholder="Post Code"]', postCode);
+  
+  // Step 5: Click [Add Customer]
+  await page.click('button[type="submit"]');
 });
+

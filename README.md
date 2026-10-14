@@ -2,6 +2,11 @@
 
 End-to-end tests for the Wizard Bank demo application using Playwright and Page Object Model.
 
+## Technologies
+- Playwright
+- Page Object Model
+- Faker.js
+
 ## Test Coverage
 
 **Customer:**

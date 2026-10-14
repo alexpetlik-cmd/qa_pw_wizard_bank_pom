@@ -1,43 +1,36 @@
-# Playwright: Wizard Bank test project
+# Playwright: Wizard Bank Test Project
 
-This project implements test coverage for the [Wizard Bank](https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login) functionality. 
+End-to-end tests for the Wizard Bank demo application using Playwright and Page Object Model.
 
-## Task description
-Please read the [instructions](TaskDescription.md) in order to complete this task.
+## Technologies
+- Playwright
+- Page Object Model
+- Faker.js
 
-# Test coverage
+## Test Coverage
 
-- Customer:
-  - Account Operations
-  - Logout
-  - Transactions
-- Manager:
-  - Bank manager login
-  - Adding new customer
-  - Adding new account for the customer
-  - Deleting a customer
-  - Searching a customer
+**Customer:**
+- Account operations (deposit, withdraw)
+- Transactions
+- Logout
 
-# How to run the tests
+**Manager:**
+- Bank Manager login
+- Add new customer
+- Open account for customer
+- Search customer
+- Delete customer
 
-## Install project
+## How to Run
+
 ```bash
-npm i
+npm install
 npx playwright install
-```
- ## Run tests in UI mode
-```bash
-npx playwright test --ui
-```
- ## Run tests in debug mode
-```bash
-npx playwright test --debug
-```
- ## Run tests in headless mode
-```bash
 npx playwright test
-```
- ## Generate report for headless run
-```bash
 npx playwright show-report
 ```
+
+## Project Structure
+- `src/pages/` — Page Objects
+- `tests/customer/` — Customer tests
+- `tests/manager/` — Manager tests

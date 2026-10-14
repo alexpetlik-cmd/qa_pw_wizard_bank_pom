@@ -1,31 +1,40 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import { OpenAccountPage } from '../../../src/pages/manager/OpenAccountPage.js';
+import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage.js';
+
+let firstName;
+let lastName;
+let postCode;
 
 test.beforeEach(async ({ page }) => {
-  /* 
-  Pre-conditons:
-  1. Open Add Customer page
-  2. Fill the First Name.  
-  3. Fill the Last Name.
-  4. Fill the Postal Code.
-  5. Click [Add Customer].
-  6. Reload the page (This is a simplified step to close the popup).
-  */
+  const addCustomerPage = new AddCustomerPage(page);
+  await addCustomerPage.open();
+  
+  firstName = faker.person.firstName();
+  lastName = faker.person.lastName();
+  postCode = faker.location.zipCode();
+
+  await addCustomerPage.fillCustomerForm(firstName, lastName, postCode);
+  await addCustomerPage.submitCustomerForm();
+  await page.reload();
 });
 
 test('Assert manager can add new customer', async ({ page }) => {
-  /* 
-  Test:
-  1. Click [Open Account].
-  2. Select Customer name you just created.
-  3. Select currency.
-  4. Click [Process].
-  5. Reload the page (This is a simplified step to close the popup).
-  6. Click [Customers].
-  7. Assert the customer row has the account number not empty.
 
-  Tips:
-  1. Do not rely on the customer row id for the step 13. 
-    Use the ".last()" locator to get the last row.
-  */
+  await page.getByRole('button', { name: 'Open Account' }).click(); 
+
+
+  const openAccountPage = new OpenAccountPage(page);
+  await openAccountPage.selectCustomer(`${firstName} ${lastName}`);
+  await openAccountPage.selectCurrency('Dollar');
+  await openAccountPage.submitForm();
+  await page.reload();
+
+  await page.getByRole('button', { name: 'Customers' }).click();
+  
+  const lastRow = page.locator('table tbody tr').last();
+  const accountNumberCell = lastRow.locator('td').nth(3);
+  
+  await expect(accountNumberCell).not.toBeEmpty();
 });
